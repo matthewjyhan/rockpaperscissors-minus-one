@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rock Paper Scissors — Minus One</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="game-shell">
+
+  <div class="header">
+    <div class="header-title">Rock Paper Scissors</div>
+    <div class="header-sub">— minus one —</div>
+  </div>
+
+  <div class="score-bar">
+    <div class="score-card you">
+      <div class="score-label">You</div>
+      <div class="score-num" id="score-user">0</div>
+    </div>
+    <div class="score-sep">vs</div>
+    <div class="score-card">
+      <div class="score-label">CPU</div>
+      <div class="score-num" id="score-cpu">0</div>
+    </div>
+  </div>
+
+  <div class="panel" id="game-area"></div>
+
+</div>
+<script src="game.js"></script>
+</body>
+</html>

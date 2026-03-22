@@ -1,6 +1,6 @@
 # rockpaperscissors-minus-one
 
-Working text-based game of Rock Paper Scissors... with a twist!
+Working game of Rock Paper Scissors... with a twist!
 Also known from Netflix's Squid Game Season 2, Rock Paper Scissors Minus One is played by playing two hands at once, then removing one hand. 
 
 ### Example round:
