@@ -345,7 +345,6 @@ function showMultiLobby() {
 
 function joinQueue() {
   connectWs(() => wsSend('joinQueue'));
-  if (ws && ws.readyState === WebSocket.OPEN) wsSend('joinQueue');
   renderQueued();
 }
 
@@ -374,7 +373,6 @@ function cancelQueue() {
 
 function createPrivateRoom() {
   connectWs(() => wsSend('createRoom'));
-  if (ws && ws.readyState === WebSocket.OPEN) wsSend('createRoom');
 }
 
 function renderWaitingForOpponent(roomId) {

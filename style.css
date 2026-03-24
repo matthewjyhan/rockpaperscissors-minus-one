@@ -27,13 +27,11 @@
   --amber-400: #BA7517;
   --amber-600: #854F0B;
 
-  --gray-50:  #F7F6F2;
-  --gray-100: #EEECEA;
-  --gray-200: #D3D1C7;
-  --gray-400: #888780;
-  --gray-600: #5F5E5A;
-  --gray-800: #2C2C2A;
-  --gray-900: #1A1A18;
+  --purple-50:  #EEEDFE;
+  --purple-200: #AFA9EC;
+  --purple-400: #7F77DD;
+  --purple-600: #534AB7;
+  --purple-800: #3C3489;
 
   --bg:        #FAFAF8;
   --surface:   #FFFFFF;
@@ -94,7 +92,7 @@ body {
   grid-template-columns: 1fr auto 1fr;
   align-items: center;
   gap: 10px;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
 }
 
 .score-card {
@@ -105,9 +103,7 @@ body {
   text-align: center;
 }
 
-.score-card.you {
-  border-color: var(--blue-200);
-}
+.score-card.you { border-color: var(--blue-200); }
 
 .score-label {
   font-size: 11px;
@@ -116,6 +112,9 @@ body {
   text-transform: uppercase;
   letter-spacing: 0.08em;
   margin-bottom: 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .score-num {
@@ -126,15 +125,63 @@ body {
   line-height: 1;
 }
 
-.score-card.you .score-num {
-  color: var(--blue-600);
-}
+.score-card.you .score-num { color: var(--blue-600); }
 
 .score-sep {
   font-size: 12px;
   color: var(--text-3);
   font-family: 'DM Mono', monospace;
   text-align: center;
+}
+
+/* ── Connection status badge ── */
+#conn-status {
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.conn-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 500;
+  border-radius: 999px;
+  padding: 4px 12px;
+  font-family: 'DM Mono', monospace;
+}
+
+.conn-badge.connected {
+  background: var(--green-50);
+  color: var(--green-600);
+  border: 1px solid var(--green-100);
+}
+
+.conn-badge.connecting {
+  background: var(--amber-50);
+  color: var(--amber-600);
+  border: 1px solid rgba(186,117,23,0.2);
+}
+
+.conn-badge.disconnected {
+  background: var(--red-50);
+  color: var(--red-600);
+  border: 1px solid var(--red-100);
+}
+
+.conn-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.conn-dot.pulse {
+  animation: dotPulse 1.2s infinite;
+}
+
+@keyframes dotPulse {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 1; }
 }
 
 /* ── Panel ── */
@@ -169,8 +216,7 @@ body {
 }
 
 .phase-dot {
-  width: 6px;
-  height: 6px;
+  width: 6px; height: 6px;
   border-radius: 50%;
   background: var(--blue-400);
 }
@@ -185,6 +231,195 @@ body {
 .panel-instruction strong {
   color: var(--text);
   font-weight: 600;
+}
+
+/* ── Mode select ── */
+.mode-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 1.25rem;
+}
+
+.mode-card {
+  border: 1.5px solid var(--border-md);
+  border-radius: var(--radius-lg);
+  background: var(--surface-2);
+  padding: 1.25rem 1rem;
+  cursor: pointer;
+  text-align: center;
+  transition: border-color 0.15s, background 0.15s, transform 0.1s;
+}
+
+.mode-card:hover {
+  border-color: var(--blue-200);
+  background: var(--blue-50);
+}
+
+.mode-card:active { transform: scale(0.97); }
+
+.mode-icon {
+  font-size: 32px;
+  margin-bottom: 8px;
+  line-height: 1;
+}
+
+.mode-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 3px;
+}
+
+.mode-desc {
+  font-size: 12px;
+  color: var(--text-3);
+  line-height: 1.4;
+}
+
+/* ── Multiplayer lobby ── */
+.mp-options {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 1.25rem;
+}
+
+.mp-btn {
+  width: 100%;
+  padding: 14px 16px;
+  border-radius: var(--radius-md);
+  border: 1.5px solid var(--border-md);
+  background: var(--surface-2);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text);
+  cursor: pointer;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.mp-btn:hover {
+  border-color: var(--blue-200);
+  background: var(--blue-50);
+}
+
+.mp-btn-icon { font-size: 20px; }
+.mp-btn-text { flex: 1; }
+.mp-btn-title { font-weight: 600; color: var(--text); }
+.mp-btn-sub   { font-size: 12px; color: var(--text-3); margin-top: 1px; }
+
+/* ── Room code display ── */
+.room-code-box {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 1rem;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.room-code-label {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--text-3);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 8px;
+}
+
+.room-code {
+  font-size: 32px;
+  font-weight: 600;
+  font-family: 'DM Mono', monospace;
+  color: var(--purple-600);
+  letter-spacing: 0.12em;
+}
+
+.room-code-hint {
+  font-size: 12px;
+  color: var(--text-3);
+  margin-top: 6px;
+}
+
+/* ── Text input ── */
+.input-row {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 1rem;
+}
+
+.text-input {
+  flex: 1;
+  padding: 10px 12px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-md);
+  background: var(--surface);
+  font-family: 'DM Mono', monospace;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--text);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  outline: none;
+  transition: border-color 0.15s;
+}
+
+.text-input:focus { border-color: var(--blue-400); }
+.text-input::placeholder { color: var(--text-3); text-transform: none; font-family: 'DM Sans', sans-serif; font-size: 14px; letter-spacing: 0; }
+
+/* ── Waiting / lobby state ── */
+.waiting-indicator {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem 0 1rem;
+  gap: 12px;
+}
+
+.waiting-dots {
+  display: flex;
+  gap: 6px;
+}
+
+.waiting-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--blue-300, var(--blue-400));
+  animation: waitBounce 1.2s infinite;
+}
+
+.waiting-dot:nth-child(2) { animation-delay: 0.2s; }
+.waiting-dot:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes waitBounce {
+  0%, 80%, 100% { transform: scale(0.6); opacity: 0.4; }
+  40% { transform: scale(1); opacity: 1; }
+}
+
+.waiting-text {
+  font-size: 14px;
+  color: var(--text-2);
+  text-align: center;
+}
+
+/* ── Opponent ready pill ── */
+.opp-ready-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  font-weight: 500;
+  background: var(--green-50);
+  color: var(--green-600);
+  border: 1px solid var(--green-100);
+  border-radius: 999px;
+  padding: 3px 10px;
+  margin-bottom: 0.75rem;
 }
 
 /* ── Hand buttons (Phase 1 picker) ── */
@@ -217,11 +452,8 @@ body {
   background: var(--blue-50);
 }
 
-.hand-btn:active {
-  transform: scale(0.96);
-}
+.hand-btn:active { transform: scale(0.96); }
 
-/* Selected state — full blue fill */
 .hand-btn.selected {
   border: 2px solid var(--blue-400);
   background: var(--blue-50);
@@ -237,13 +469,10 @@ body {
   filter: drop-shadow(0 2px 6px rgba(55, 138, 221, 0.35));
 }
 
-/* Selection order badge */
 .sel-badge {
   position: absolute;
-  top: 8px;
-  right: 8px;
-  width: 18px;
-  height: 18px;
+  top: 8px; right: 8px;
+  width: 18px; height: 18px;
   border-radius: 50%;
   background: var(--blue-400);
   color: #fff;
@@ -255,10 +484,7 @@ body {
   font-family: 'DM Mono', monospace;
 }
 
-.hand-icon {
-  font-size: 40px;
-  line-height: 1;
-}
+.hand-icon  { font-size: 40px; line-height: 1; }
 
 .hand-label {
   font-size: 12px;
@@ -283,18 +509,9 @@ body {
   letter-spacing: -0.01em;
 }
 
-.confirm-btn:hover:not(:disabled) {
-  opacity: 0.85;
-}
-
-.confirm-btn:active:not(:disabled) {
-  transform: scale(0.99);
-}
-
-.confirm-btn:disabled {
-  opacity: 0.3;
-  cursor: default;
-}
+.confirm-btn:hover:not(:disabled) { opacity: 0.85; }
+.confirm-btn:active:not(:disabled) { transform: scale(0.99); }
+.confirm-btn:disabled { opacity: 0.3; cursor: default; }
 
 /* ── Arena (Phase 2 layout) ── */
 .arena {
@@ -305,9 +522,7 @@ body {
   margin-bottom: 1.25rem;
 }
 
-.arena-side {
-  text-align: center;
-}
+.arena-side { text-align: center; }
 
 .arena-label {
   font-size: 11px;
@@ -348,7 +563,6 @@ body {
   font-family: 'DM Mono', monospace;
 }
 
-/* Drop target — clickable in phase 2 */
 .arena-hand.droppable {
   cursor: pointer;
   border-color: var(--border-md);
@@ -359,38 +573,36 @@ body {
   background: var(--red-50);
 }
 
-.arena-hand.droppable:hover .sm-label {
-  color: var(--red-600);
-}
+.arena-hand.droppable:hover .sm-label { color: var(--red-600); }
 
-/* CPU hand — revealed */
 .arena-hand.cpu-revealed {
   border-color: var(--amber-400);
   background: var(--amber-50);
 }
 
-.arena-hand.cpu-revealed .sm-label {
-  color: var(--amber-600);
+.arena-hand.cpu-revealed .sm-label { color: var(--amber-600); }
+
+/* Opponent's revealed hands in multiplayer */
+.arena-hand.opp-revealed {
+  border-color: var(--purple-400);
+  background: var(--purple-50);
 }
 
-/* Result states */
+.arena-hand.opp-revealed .sm-label { color: var(--purple-600); }
+
 .arena-hand.final-win {
   border: 2px solid var(--green-400);
   background: var(--green-50);
 }
 
-.arena-hand.final-win .sm-label {
-  color: var(--green-600);
-}
+.arena-hand.final-win .sm-label { color: var(--green-600); }
 
 .arena-hand.final-lose {
   border: 2px solid var(--red-400);
   background: var(--red-50);
 }
 
-.arena-hand.final-lose .sm-label {
-  color: var(--red-600);
-}
+.arena-hand.final-lose .sm-label { color: var(--red-600); }
 
 .arena-hand.removed {
   opacity: 0.25;
@@ -408,25 +620,12 @@ body {
   padding-top: 28px;
 }
 
-/* Drop hint */
 .drop-hint {
   font-size: 13px;
   color: var(--text-3);
   text-align: center;
   margin-bottom: 1rem;
   line-height: 1.5;
-}
-
-.drop-hint span {
-  display: inline-block;
-  background: var(--red-50);
-  color: var(--red-600);
-  border: 1px solid var(--red-100);
-  border-radius: 999px;
-  font-size: 11px;
-  font-weight: 500;
-  padding: 2px 9px;
-  margin: 0 2px;
 }
 
 /* ── Result ── */
@@ -439,10 +638,7 @@ body {
   margin-bottom: 1rem;
 }
 
-.result-emoji {
-  font-size: 40px;
-  margin-bottom: 10px;
-}
+.result-emoji { font-size: 40px; margin-bottom: 10px; }
 
 .result-text {
   font-size: 22px;
@@ -452,10 +648,7 @@ body {
   letter-spacing: -0.02em;
 }
 
-.result-sub {
-  font-size: 14px;
-  color: var(--text-2);
-}
+.result-sub  { font-size: 14px; color: var(--text-2); }
 
 .cpu-reveal-note {
   font-size: 12px;
@@ -485,13 +678,8 @@ body {
   transition: background 0.12s, transform 0.1s;
 }
 
-.btn:hover {
-  background: var(--surface-2);
-}
-
-.btn:active {
-  transform: scale(0.98);
-}
+.btn:hover { background: var(--surface-2); }
+.btn:active { transform: scale(0.98); }
 
 .btn.primary {
   background: var(--text);
@@ -499,9 +687,7 @@ body {
   border-color: transparent;
 }
 
-.btn.primary:hover {
-  opacity: 0.85;
-}
+.btn.primary:hover { opacity: 0.85; }
 
 /* ── Selection summary chips ── */
 .selection-summary {
@@ -528,13 +714,25 @@ body {
   color: var(--blue-800);
 }
 
-.sel-plus {
+.sel-plus { font-size: 13px; color: var(--text-3); }
+
+/* ── Error message ── */
+.error-msg {
   font-size: 13px;
-  color: var(--text-3);
+  color: var(--red-600);
+  background: var(--red-50);
+  border: 1px solid var(--red-100);
+  border-radius: var(--radius-sm);
+  padding: 8px 12px;
+  margin-bottom: 1rem;
+  text-align: center;
 }
 
-.divider {
-  height: 1px;
-  background: var(--border);
-  margin: 1.25rem 0;
+/* ── Rematch waiting ── */
+.rematch-note {
+  font-size: 13px;
+  color: var(--text-3);
+  text-align: center;
+  margin-top: 0.75rem;
+  font-style: italic;
 }

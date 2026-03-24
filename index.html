@@ -17,17 +17,20 @@
     <div class="header-sub">— minus one —</div>
   </div>
 
-  <div class="score-bar">
-    <div class="score-card you">
-      <div class="score-label">You</div>
+  <div class="score-bar" id="score-bar" style="display:none;">
+    <div class="score-card you" >
+      <div class="score-label" id="score-label-you">You</div>
       <div class="score-num" id="score-user">0</div>
     </div>
     <div class="score-sep">vs</div>
     <div class="score-card">
-      <div class="score-label">CPU</div>
+      <div class="score-label" id="score-label-opp">CPU</div>
       <div class="score-num" id="score-cpu">0</div>
     </div>
   </div>
+
+  <!-- Connection status badge (multiplayer only) -->
+  <div id="conn-status" style="display:none;"></div>
 
   <div class="panel" id="game-area"></div>
 
