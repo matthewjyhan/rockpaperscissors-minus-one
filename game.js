@@ -337,6 +337,8 @@ function showMultiLobby() {
       </button>
     </div>
 
+    <div class="panel-instruction">Multiplayer server startup time is around 2 minutes. Your patience when connecting or generating a room code is appreciated.</div>
+
     <button class="btn" onclick="showModeSelect()">← Back</button>
   `);
 
